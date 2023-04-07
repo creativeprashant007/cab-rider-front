@@ -3,10 +3,11 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth, database } from "@/context/firebaseAuth/firebaseConfig"
 import { useState, useEffect } from "react"
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Card } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/router';
 import styled from "styled-components";
 import Image from 'next/image'
+import { ref, set  } from "firebase/database";
 
 
 const LoginCard = styled.div`
@@ -82,17 +83,11 @@ function Login(){
         return
       }
       router.push("/")
-      // set(ref(database, "admins/" + ))
-      // set(ref(database, "admins/" , {
-      //   "email": values.email,
-      //   "logged-in": true,
-      // }))
-      const adminInfo = database.ref('admins').push()
-       adminInfo.set({
+      set(ref(database, `admins/${auth.currentUser.uid}`) , {
         "email": values.email,
-        "logged-in": true,
-       })
-
+        "is_logged_in": true,
+      })
+      
     } catch (error) {
       alert("Invalid Credentials login failed")
       console.log(error)

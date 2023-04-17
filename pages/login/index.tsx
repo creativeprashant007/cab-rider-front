@@ -6,7 +6,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/router';
 import styled from "styled-components";
-import Image from 'next/image'
+import Image from 'next/image';
 import { ref, set  } from "firebase/database";
 
 
@@ -77,7 +77,6 @@ function Login(){
         values.email,
         values.password
       )
-      console.log("data",data)
       if (!data  || !auth.currentUser) {
         console.log("am i here")
         return
